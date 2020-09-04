@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const options = new DocumentBuilder()
-    .setTitle('bigfish admin')
+    .setTitle('Bigfish Admin')
     .setDescription('The Bigfish API description')
     .setVersion('1.0')
     .build();
@@ -14,6 +14,6 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(3000);
-  console.log('http://localhost:3000')
+  console.log('http://localhost:3000/api-docs')
 }
 bootstrap();
