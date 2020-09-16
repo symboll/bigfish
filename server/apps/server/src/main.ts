@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors()
   const options = new DocumentBuilder()
-    .setTitle('Bigfish Admin')
+    .setTitle('Bigfish Server')
     .setDescription('The Bigfish API description')
     .setVersion('1.0')
     .build();
