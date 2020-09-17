@@ -1,21 +1,20 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
-import { ApiTags, ApiProperty, ApiOperation } from '@nestjs/swagger';
+import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { InjectModel } from 'nestjs-typegoose';
-import { ReturnModelType } from '@typegoose/typegoose';
+import { ReturnModelType,DocumentType } from '@typegoose/typegoose';
 import { User } from '@libs/db/models/user.models';
-
-export class RegisterDto {
-  @ApiProperty()
-  username: string;
-  @ApiProperty()
-  password: string;
-}
+import { AuthGuard } from '@nestjs/passport'
+import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
+import { JwtService } from '@nestjs/jwt'
+import { CurrentUser } from './current-user.decorator';
 
 
 @Controller('auth')
 @ApiTags('用户')
 export class AuthController {
   constructor (
+    private jwtService :JwtService,
     @InjectModel(User) private readonly userModel: ReturnModelType<typeof User>
   ) {}
 
@@ -33,13 +32,18 @@ export class AuthController {
 
   @Post('login')
   @ApiOperation({ summary: '登录' })
-  async login(@Body() dto) {
-    return dto
+  @UseGuards(AuthGuard('local'))
+  async login(@Body() dto: LoginDto, @CurrentUser() user: DocumentType<User>) {
+    return {
+      token: this.jwtService.sign(String(user._id))
+    }
   }
 
   @Get('userInfo')
   @ApiOperation({ summary: '获取用户信息' })
-  async getUserInfo() {
-    return {}
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
+  async getUserInfo(@CurrentUser() user: DocumentType<User>) {
+    return user
   }
 }

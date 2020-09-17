@@ -8,6 +8,7 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('Bigfish Server')
     .setDescription('The Bigfish API description')
+    .addBearerAuth()
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, options);
