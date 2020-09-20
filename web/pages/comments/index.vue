@@ -1,11 +1,9 @@
 <template>
-  <div>首页</div>
+  <div>评论</div>
 </template>
-
 <script>
 export default {
-  components: {
-    //
-  },
+  //
 }
 </script>
+<style scoped></style>

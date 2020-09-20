@@ -2,7 +2,12 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
-        <v-list-item v-for="item in items" :key="item.text" link>
+        <v-list-item
+          v-for="item in items"
+          :key="item.text"
+          :to="item.link"
+          link
+        >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -49,7 +54,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon class="mx-4" large> mdi-youtube </v-icon>
       <v-toolbar-title class="mr-12 align-center">
-        <span class="title">Youtube</span>
+        <span class="title">BigFish</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-row align="center" style="max-width: 650px">
@@ -65,9 +70,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container class="fill-height">
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-main>
   </v-app>
 </template>
@@ -77,11 +80,9 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { icon: 'mdi-trending-up', text: 'Most Popular' },
-      { icon: 'mdi-youtube-subscription', text: 'Subscriptions' },
-      { icon: 'mdi-history', text: 'History' },
-      { icon: 'mdi-playlist-play', text: 'Playlists' },
-      { icon: 'mdi-clock', text: 'Watch Later' },
+      { icon: 'mdi-home', text: '首页', link: '/' },
+      { icon: 'mdi-trending-up', text: '热门课程', link: '/courses' },
+      { icon: 'mdi-youtube-subscription', text: '热门评论', link: '/comments' },
     ],
     items2: [
       { picture: 28, text: 'Joseph' },
@@ -92,7 +93,7 @@ export default {
     ],
   }),
   created() {
-    // this.$vuetify.theme.dark = true
+    this.$vuetify.theme.dark = false
   },
 }
 </script>

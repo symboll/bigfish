@@ -1,4 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -38,8 +40,10 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    '@nuxtjs/dotenv',
   ],
 
+  env: { baseUrl: process.env.BASE_URL },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
