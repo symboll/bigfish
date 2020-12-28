@@ -12,6 +12,10 @@ export class User {
   @prop()
   username: string;
 
+  @ApiProperty({ description: '用户头像', example: '' })
+  @prop()
+  avatar: string;
+
   @ApiProperty({ description: '密码', example: '123456' })
   @prop({
     select: false,

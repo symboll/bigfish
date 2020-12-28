@@ -21,10 +21,11 @@ export class AuthController {
   @Post('register')
   @ApiOperation({ summary: '注册用户' })
   async register(@Body() dto: RegisterDto) {
-    const { username, password } = dto
+    const { username, password, avatar='' } = dto
     const user = await this.userModel.create({
       username,
-      password
+      password,
+      avatar
     })
 
     return user;
@@ -44,6 +45,8 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   async getUserInfo(@CurrentUser() user: DocumentType<User>) {
+    // await new Promise((resolve) => { setTimeout(resolve, 2000) })
     return user
   }
 }
+
